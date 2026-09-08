@@ -553,3 +553,183 @@ function copyName(name) {
 }
 </script>
           </html>
+<!-- DOMAIN NAME GENERATOR -->
+<style>
+.domain-generator {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 28px;
+  background: white;
+  border-radius: 18px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.domain-generator h2 {
+  margin-bottom: 8px;
+}
+
+.domain-generator p {
+  color: #64748b;
+}
+
+.domain-generator input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  margin: 18px 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.domain-generator button {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#domainResults {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.domain-item {
+  padding: 13px;
+  margin: 8px 0;
+  background: #f8fafc;
+  border-radius: 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.domain-name {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.domain-status {
+  font-size: 13px;
+  color: #16a34a;
+}
+
+.domain-copy {
+  background: #111827 !important;
+  padding: 7px 10px !important;
+  font-size: 13px !important;
+  white-space: nowrap;
+}
+</style>
+
+<div class="domain-generator">
+  <h2>🌐 Domain Name Generator</h2>
+  <p>Apne business ya website ka naam enter karein</p>
+
+  <input
+    id="domainKeyword"
+    type="text"
+    placeholder="Example: Smart Restaurant"
+  >
+
+  <button onclick="generateDomains()">🚀 Generate Domains</button>
+
+  <div id="domainResults"></div>
+</div>
+
+<script>
+function generateDomains() {
+
+  const input = document
+    .getElementById("domainKeyword")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const results = document.getElementById("domainResults");
+
+  if (!input) {
+    results.innerHTML = "⚠️ Pehle koi business ya website name enter karein.";
+    return;
+  }
+
+  const clean = input
+    .replace(/[^a-z0-9]+/g, "")
+    .trim();
+
+  if (!clean) {
+    results.innerHTML = "⚠️ Please English letters ya numbers use karein.";
+    return;
+  }
+
+  const domains = [
+    clean + ".com",
+    clean + ".net",
+    clean + ".org",
+    "get" + clean + ".com",
+    "my" + clean + ".com",
+    "try" + clean + ".com",
+    "use" + clean + ".com",
+    clean + "online.com",
+    clean + "hub.com",
+    clean + "world.com",
+    clean + "pro.com",
+    clean + "app.com",
+    clean + "site.com",
+    clean + "store.com"
+  ];
+
+  const uniqueDomains = [...new Set(domains)];
+
+  let output = "<h3>🌐 Domain Ideas</h3>";
+
+  uniqueDomains.forEach((domain, index) => {
+
+    output += `
+      <div class="domain-item">
+        <div>
+          <div class="domain-name">
+            ${index + 1}. ${domain}
+          </div>
+          <div class="domain-status">
+            💡 Suggested
+          </div>
+        </div>
+
+        <button
+          class="domain-copy"
+          onclick="copyDomain('${domain}')"
+        >
+          Copy
+        </button>
+      </div>
+    `;
+  });
+
+  output += `
+    <p style="margin-top:18px;font-size:13px;color:#64748b;">
+      ⚠️ Ye sirf domain name suggestions hain. Actual availability
+      domain registrar par check karein.
+    </p>
+  `;
+
+  results.innerHTML = output;
+}
+
+function copyDomain(domain) {
+
+  navigator.clipboard.writeText(domain)
+    .then(function() {
+      alert("✅ Domain copied: " + domain);
+    })
+    .catch(function() {
+      alert("📋 Domain: " + domain);
+    });
+}
+</script>
