@@ -367,5 +367,85 @@
   });
 </script>
 
-</body>
+</body><style>
+.business-generator {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.business-generator input {
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.business-generator button {
+  padding: 12px 20px;
+  background: #16a34a;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+#businessResults {
+  margin-top: 20px;
+  text-align: left;
+  line-height: 2;
+}
+</style>
+
+<div class="business-generator">
+  <h2>💼 Business Name Generator</h2>
+  <p>Apne business ka type enter karein</p>
+
+  <input id="businessType" placeholder="Example: Restaurant">
+
+  <button onclick="generateNames()">Generate Names</button>
+
+  <div id="businessResults"></div>
+</div>
+
+<script>
+function generateNames() {
+  const type = document.getElementById("businessType").value.trim();
+  const results = document.getElementById("businessResults");
+
+  if (!type) {
+    results.innerHTML = "⚠️ Pehle business type enter karein.";
+    return;
+  }
+
+  const first = [
+    "Smart", "Prime", "Royal", "Next",
+    "Bright", "Quick", "Elite", "Global",
+    "Fresh", "Pro"
+  ];
+
+  const last = [
+    "Hub", "World", "Point", "Works",
+    "Studio", "Zone", "Plus", "House",
+    "Center", "Solutions"
+  ];
+
+  let output = "<h3>✨ Name Ideas</h3>";
+
+  for (let i = 0; i < 10; i++) {
+    const a = first[Math.floor(Math.random() * first.length)];
+    const b = last[Math.floor(Math.random() * last.length)];
+
+    output += "<div>💡 " + a + " " + type + " " + b + "</div>";
+  }
+
+  results.innerHTML = output;
+}
+</script>
           </html>
