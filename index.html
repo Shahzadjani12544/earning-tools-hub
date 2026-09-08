@@ -368,84 +368,188 @@
 </script>
 
 </body><style>
+<style>
 .business-generator {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 25px;
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 28px;
   background: white;
-  border-radius: 15px;
+  border-radius: 18px;
   text-align: center;
   border: 1px solid #e5e7eb;
 }
 
+.business-generator h2 {
+  margin-bottom: 8px;
+}
+
+.business-generator p {
+  color: #64748b;
+}
+
 .business-generator input {
   width: 100%;
-  padding: 14px;
-  margin: 15px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 15px;
+  margin: 18px 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
   font-size: 16px;
 }
 
 .business-generator button {
   padding: 12px 20px;
+  border: 0;
+  border-radius: 9px;
   background: #16a34a;
   color: white;
-  border: 0;
-  border-radius: 8px;
   font-size: 16px;
+  cursor: pointer;
 }
 
 #businessResults {
-  margin-top: 20px;
+  margin-top: 25px;
   text-align: left;
-  line-height: 2;
+}
+
+.name-item {
+  padding: 13px;
+  margin: 8px 0;
+  background: #f8fafc;
+  border-radius: 9px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.copy-btn {
+  background: #111827 !important;
+  padding: 7px 10px !important;
+  font-size: 13px !important;
 }
 </style>
 
 <div class="business-generator">
   <h2>💼 Business Name Generator</h2>
-  <p>Apne business ka type enter karein</p>
+  <p>Apne business ki category enter karein</p>
 
-  <input id="businessType" placeholder="Example: Restaurant">
+  <input
+    id="businessType"
+    type="text"
+    placeholder="Example: Restaurant, Clothing, Real Estate"
+  >
 
-  <button onclick="generateNames()">Generate Names</button>
+  <button onclick="generateNames()">✨ Generate Names</button>
 
   <div id="businessResults"></div>
 </div>
 
 <script>
 function generateNames() {
-  const type = document.getElementById("businessType").value.trim();
+
+  const type = document
+    .getElementById("businessType")
+    .value
+    .trim();
+
   const results = document.getElementById("businessResults");
 
   if (!type) {
-    results.innerHTML = "⚠️ Pehle business type enter karein.";
+    results.innerHTML = "⚠️ Pehle business category enter karein.";
     return;
   }
 
-  const first = [
-    "Smart", "Prime", "Royal", "Next",
-    "Bright", "Quick", "Elite", "Global",
-    "Fresh", "Pro"
+  const cleanType =
+    type.charAt(0).toUpperCase() + type.slice(1);
+
+  const patterns = [
+    "Nova {type}",
+    "Zen {type}",
+    "Urban {type}",
+    "Prime {type}",
+    "{type} Avenue",
+    "{type} Nest",
+    "{type} House",
+    "{type} World",
+    "{type} Point",
+    "{type} Studio",
+    "{type} Hub",
+    "{type} Works",
+    "{type} Zone",
+    "{type} Plus",
+    "{type} Pro",
+    "Royal {type}",
+    "Elite {type}",
+    "Smart {type}",
+    "Bright {type}",
+    "Future {type}",
+    "Global {type}",
+    "Next {type}",
+    "Quick {type}",
+    "Fresh {type}",
+    "Golden {type}",
+    "Digital {type}",
+    "Infinity {type}",
+    "Vision {type}",
+    "Dream {type}",
+    "Success {type}",
+    "Capital {type}",
+    "Premium {type}",
+    "Express {type}",
+    "Magic {type}",
+    "Perfect {type}",
+    "Top {type}",
+    "My {type}",
+    "Best {type}",
+    "Easy {type}",
+    "Pro {type} Co",
+    "{type} Central",
+    "{type} World",
+    "{type} Lab",
+    "{type} Factory",
+    "{type} Market",
+    "{type} Masters",
+    "{type} Experts",
+    "{type} Direct",
+    "{type} Connect",
+    "{type} Online"
   ];
 
-  const last = [
-    "Hub", "World", "Point", "Works",
-    "Studio", "Zone", "Plus", "House",
-    "Center", "Solutions"
-  ];
+  const shuffled = [...patterns].sort(
+    () => Math.random() - 0.5
+  );
 
-  let output = "<h3>✨ Name Ideas</h3>";
+  const selected = shuffled.slice(0, 10);
 
-  for (let i = 0; i < 10; i++) {
-    const a = first[Math.floor(Math.random() * first.length)];
-    const b = last[Math.floor(Math.random() * last.length)];
+  let output = "<h3>✨ Your Business Name Ideas</h3>";
 
-    output += "<div>💡 " + a + " " + type + " " + b + "</div>";
-  }
+  selected.forEach((pattern, index) => {
+
+    const name = pattern.replace(
+      "{type}",
+      cleanType
+    );
+
+    output += `
+      <div class="name-item">
+        <span>${index + 1}. ${name}</span>
+        <button
+          class="copy-btn"
+          onclick="copyName('${name.replace(/'/g, "\\'")}')"
+        >
+          Copy
+        </button>
+      </div>
+    `;
+  });
 
   results.innerHTML = output;
+}
+
+function copyName(name) {
+
+  navigator.clipboard.writeText(name);
+
+  alert("✅ Name copied: " + name);
 }
 </script>
           </html>
